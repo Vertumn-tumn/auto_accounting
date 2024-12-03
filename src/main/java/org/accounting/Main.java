@@ -1,15 +1,12 @@
 package org.accounting;
 
-import org.accounting.model.MonthlyReport;
-
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         DataProcessor dataProcessor = new DataProcessor();
         String userInput;
-        String keyWord = "q";
+        String keyWord = "quit";
 
         System.out.println("Привет, бухгалтер!Милый мой бухгалтер");
         System.out.println("Вот что я могу сделать для вас:");
@@ -19,7 +16,7 @@ public class Main {
         System.out.println("Вывести информацию о всех месячных отчётах - нажми 4");
         System.out.println("Вывести информацию о годовом отчёте - нажми 5");
         System.out.println("Для завершения работы с програмой нажми 'q'");
-        System.out.println("Введите необходимое число или символ 'q' для выхода из программы:");
+        System.out.println("Введите необходимое число или строку 'quit' для выхода из программы:");
         Scanner scanner = new Scanner(System.in);
         userInput = scanner.nextLine();
 
@@ -42,16 +39,18 @@ public class Main {
                 }
                 case "4" -> {
                     //Вывести информацию о всех месячных отчётах
-                    Map<String, MonthlyReport> monthlyReports = dataProcessor.getMonthlyReports();
+                    dataProcessor.monthlyReportsInfo();
                     userInput = scanner.nextLine();
                 }
                 case "5" -> {
                     //Вывести информацию о годовом отчёте
-                    dataProcessor.getYearlyReport();
-                    System.out.println();
+                    dataProcessor.yearlyReportInfo();
                     userInput = scanner.nextLine();
                 }
-                case "q" -> System.out.println("До свидания!!!");
+                case "quit" -> {
+                    System.out.println("До свидания!!!");
+                    userInput = "quit";
+                }
                 default -> {
                     System.out.println("Некорректный ввод! Пожалуйста введите корректное значение.");
                     System.out.println("Введите необходимое число:");

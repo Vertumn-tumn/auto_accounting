@@ -3,3 +3,12 @@
 /.idea/jarRepositories.xml
 /.idea/misc.xml
 /.idea/uiDesigner.xml
+/target/classes/org/accounting/DataProcessor.class
+/target/classes/org/accounting/DataReader.class
+/target/test-classes/org/accounting/DataReaderTest.class
+/target/classes/org/accounting/DataUtil.class
+/target/classes/org/accounting/Main.class
+/target/classes/org/accounting/model/MonthlyItem.class
+/target/classes/org/accounting/model/MonthlyReport.class
+/target/classes/org/accounting/model/YearlyItem.class
+/target/classes/org/accounting/model/YearlyReport.class

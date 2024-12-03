@@ -17,7 +17,7 @@ public class DataReader {
         if (files.isEmpty()) {
             System.out.println("Вы не положили отчёты в директорию для прочтения!");
             System.out.println("Положите их по адресу - C:/Users/admin/Documents/monthReport");
-            return null;
+            return new HashMap<>();
         } else return getMonthlyMapWithFilesContent(files, monthlyReportsPath);
     }
 
@@ -27,13 +27,14 @@ public class DataReader {
         if (files.isEmpty()) {
             System.out.println("Вы не положили отчёты в директорию для прочтения!");
             System.out.println("Положите их по адресу - C:/Users/admin/Documents/yearReport");
+            return new HashMap<>();
         }
         return getYearlyMapWithFilesContent(files, yearlyReportsPath);
     }
 
-     Map<String, String> getYearlyMapWithFilesContent(Set<String> files, String yearlyReportsPath) {
+    Map<String, String> getYearlyMapWithFilesContent(Set<String> files, String yearlyReportsPath) {
         Map<String, String> content = new HashMap<>();
-        String file = String.valueOf(files.stream().findFirst());
+        String file = files.stream().findFirst().get();
         String fileContent = readFileContentOrNull(yearlyReportsPath + "/" + file);
         String fileName = file.substring(2, 6) + " год";
         content.put(fileName, fileContent);
@@ -56,7 +57,7 @@ public class DataReader {
             Charset windows1251 = Charset.forName("Windows-1251");
             return Files.readString(Path.of(path), windows1251);
         } catch (IOException e) {
-            System.out.println("Невозможно прочитать с ежемесячным отчётом.");
+            System.out.println("Невозможно прочитать файл с ежемесячным отчётом.");
             return null;
         }
     }
@@ -78,10 +79,8 @@ public class DataReader {
     // Метод для фильтрации файлов
     private boolean isValidFile(Path path) {
         String fileName = path.toString();
-        if (fileName.contains("yearReport")) {
-            return fileName.startsWith("y.20") && fileName.endsWith(".txt");
-        } else if (fileName.contains("monthReport")) {
-            return fileName.startsWith("m.20") && fileName.endsWith(".txt");
-        } else return false;
+        if (fileName.startsWith("m.20") && fileName.endsWith(".txt")) {
+            return true;
+        } else return fileName.startsWith("y.20") && fileName.endsWith(".txt");
     }
 }
